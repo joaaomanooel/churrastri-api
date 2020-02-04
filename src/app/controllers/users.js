@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const User = require('../models/user');
 const { generateToken } = require('./auth');
 const { handleResponseError } = require('../helpers');
@@ -31,7 +30,7 @@ const insert = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).send({ error: 'User already exist.' });
     await User.create(req.body);
-    const user = await User.findOne({ email });
+    const { _doc: user } = await User.findOne({ email });
     return res.send({ ...user, ...generateToken({ id: user._id }) });
   } catch (error) { return handleResponseError(operationError('register'), error, res); }
 };
