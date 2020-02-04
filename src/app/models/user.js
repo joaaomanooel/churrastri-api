@@ -21,14 +21,6 @@ const UserSchema = new Schema({
     required: true,
     select: false,
   },
-  passwordResetToken: {
-    type: String,
-    select: false,
-  },
-  passwordResetExpires: {
-    type: Date,
-    select: false,
-  },
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -36,7 +28,6 @@ const UserSchema = new Schema({
   barbecues: [{
     type: Schema.Types.ObjectId,
     ref: 'Barbecues',
-    unique: true,
   }],
 });
 
