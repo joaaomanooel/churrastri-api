@@ -1,4 +1,4 @@
-# Churras Tri  :meat_on_bone: :eggplant: :poultry_leg:
+# Churras Tri API  :meat_on_bone: :eggplant: :poultry_leg:
 [![Build Status](https://travis-ci.org/joaaomanooel/churras-tri.svg?branch=master)](https://travis-ci.org/joaaomanooel/churras-tri) [![Coverage Status](https://coveralls.io/repos/github/joaaomanooel/churras-tri/badge.svg)](https://coveralls.io/github/joaaomanooel/churras-tri) [![Known Vulnerabilities](https://snyk.io/test/github//joaaomanooel/churras-tri/badge.svg)](https://snyk.io/test/github//joaaomanooel/churras-tri)
 
 ## Contributing
