@@ -1,0 +1,39 @@
+definitions:
+  User:
+    properties:
+      createdAt:
+        type: string
+        example: "2020-02-04T07:44:48.939Z"
+      barbecues:
+        type: array
+        items:
+          $ref: "#/definitions/barbecues"
+      _id:
+        type: string
+        example: "5e39215283455023371fa903"
+      email:
+        type: string
+        example: "joaomanoel@gmail.com"
+      name:
+        type: string
+        example: "João Manoel Neto"
+      __v:
+        type: string
+        example: 0
+      refreshToken:
+        type: string
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXJhbXMiOnsiaWQiOiI1ZTM5MjE1MjgzNDU1MDIzMzcxZmE5MDMifSwiaWF0IjoxNTgwODAyMzg2LCJleHAiOjE1OTExNzAzODZ9.6YAkg-lazn1qxXhdXQmnWCoQ-bnZ9_yqrVVRdQU-QDc"
+      accessToken:
+        type: string
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXJhbXMiOnsiaWQiOiI1ZTM5MjE1MjgzNDU1MDIzMzcxZmE5MDMifSwiaWF0IjoxNTgwODAyMzg2LCJleHAiOjE1ODE0MDcxODZ9.ClrhpnsRL1knV9lLpItr8YB8PmkH9WQyK_4JLZfv-Go"
+  CreateUser:
+    properties:
+      email:
+        type: string
+        example: "joaomanoel@email.com"
+      name:
+        type: string
+        example: "João Manoel Neto"
+      password:
+        type: string
+        example: "123456"

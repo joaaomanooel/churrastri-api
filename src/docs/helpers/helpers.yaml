@@ -1,0 +1,7 @@
+definitions:
+  ResponseError:
+    properties:
+      message:
+        type: string
+      error:
+        type: object

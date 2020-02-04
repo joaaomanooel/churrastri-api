@@ -8,7 +8,7 @@ const session = require('express-session');
 const swaggerUi = require('swagger-ui-express');
 const RateLimit = require('express-rate-limit');
 
-const swaggerDocument = require('./docs/swagger');
+const swaggerDocument = require('./docs');
 const router = require('./app/routes');
 
 const sessionConfig = {

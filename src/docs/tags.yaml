@@ -1,0 +1,7 @@
+tags:
+  - name: Auth
+    description: Endpoints de autenticação
+  - name: Barbecues
+    description: Endpoints de banners
+  - name: Users
+    description: Endpoints de users

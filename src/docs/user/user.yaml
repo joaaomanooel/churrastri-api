@@ -1,0 +1,101 @@
+paths:
+  /users:
+    get:
+      description: Retorna todos usuários
+      tags:
+        - Users
+      produces:
+        - application/json
+      parameters:
+        - in: headers
+          name: Authorization
+          type: string
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: "#/definitions/User"
+    post:
+      description: Adiciona um usuário
+      tags:
+        - Users
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            required:
+              - name
+              - email
+              - password
+            $ref: "#/definitions/CreateUser"
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/User"
+  /users/${id}:
+    get:
+      description: Adiciona um usuário
+      tags:
+        - Users
+      produces:
+        - application/json
+      parameters:
+        - in: headers
+          name: Authorization
+          type: string
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/User"
+    put:
+      description: Adiciona um usuário
+      tags:
+        - Users
+      produces:
+        - application/json
+      parameters:
+        - in: headers
+          name: Authorization
+          type: string
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "204":
+          description: No Content
+    delete:
+      description: Adiciona um usuário
+      tags:
+        - Users
+      produces:
+        - application/json
+      parameters:
+        - in: headers
+          name: Authorization
+          type: string
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "204":
+          description: No Content
