@@ -28,7 +28,7 @@ const insert = async (req, res) => {
   try {
     const { email } = req.body;
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).send({ error: 'User already exist.' });
+    if (existingUser) return handleResponseError('User already exist.', undefined, res);
     await User.create(req.body);
     const { _doc: user } = await User.findOne({ email });
     return res.send({ ...user, ...generateToken({ id: user._id }) });
@@ -49,7 +49,7 @@ const remove = async (req, res) => {
     const { id } = req.params;
     if (req.userId !== id) throw new Error(PermissionErr);
     await User.remove({ _id: id });
-    return res.status(201).send({ message: 'User removed with success.' });
+    return res.status(204).send({ message: 'User removed with success.' });
   } catch (error) { return handleResponseError(operationError('remove'), error, res); }
 };
 

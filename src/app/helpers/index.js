@@ -7,7 +7,7 @@
  * @param {object} res
  */
 const handleResponseError = (message, error, res) => {
-  console.error(error);
+  console.error('[ERROR]:', error || message);
   return res.status(400).send({ message, error });
 };
 
