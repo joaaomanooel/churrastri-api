@@ -1,5 +1,4 @@
 const cors = require('cors');
-const csurf = require('csurf');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
@@ -11,8 +10,6 @@ const RateLimit = require('express-rate-limit');
 
 const swaggerDocument = require('./docs/swagger');
 const router = require('./app/routes');
-
-const csrfProtection = csurf({ cookie: true });
 
 const sessionConfig = {
   secret: 's3Cur3',
@@ -31,9 +28,9 @@ module.exports = express()
   .use(morgan('dev'))
   .set('trust proxy', 1)
   .use(bodyParser.json())
+  .use('/api/v1', router)
   .disable('x-powered-by')
   .use(session(sessionConfig))
-  .use('/api/v1', csrfProtection, router)
   .use(helmet({ frameguard: { action: 'deny' } }))
   .use(bodyParser.urlencoded({ extended: false }))
   .use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
