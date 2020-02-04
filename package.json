@@ -15,11 +15,11 @@
   },
   "keywords": [
     "api",
-    "node",
+    "nodejs",
     "tdd",
     "express",
     "barbecue",
-    "mongo"
+    "mongodb"
   ],
   "author": {
     "name": "Joao Manoel Neto",
