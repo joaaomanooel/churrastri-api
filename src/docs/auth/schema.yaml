@@ -1,0 +1,17 @@
+definitions:
+  RefreshToken:
+    properties:
+      refreshToken:
+        type: string
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXJhbXMiOnsiaWQiOiI1ZTM5MjE1MjgzNDU1MDIzMzcxZmE5MDMifSwiaWF0IjoxNTgwODAyMzg2LCJleHAiOjE1OTExNzAzODZ9.6YAkg-lazn1qxXhdXQmnWCoQ-bnZ9_yqrVVRdQU-QDc"
+      accessToken:
+        type: string
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXJhbXMiOnsiaWQiOiI1ZTM5MjE1MjgzNDU1MDIzMzcxZmE5MDMifSwiaWF0IjoxNTgwODAyMzg2LCJleHAiOjE1ODE0MDcxODZ9.ClrhpnsRL1knV9lLpItr8YB8PmkH9WQyK_4JLZfv-Go"
+  Login:
+    properties:
+      email:
+        type: string
+        example: "joaomanoel@email.com"
+      password:
+        type: string
+        example: "123456"

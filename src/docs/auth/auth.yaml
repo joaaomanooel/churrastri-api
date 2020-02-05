@@ -1,0 +1,55 @@
+paths:
+  /auth:
+    post:
+      description: Authenticate User
+      tags:
+        - Auth
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            $ref: "#/definitions/Login"
+      produces:
+        - application/json
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: "#/definitions/User"
+  /auth/refresh-token:
+    post:
+      description: Refresh Access token
+      tags:
+        - Auth
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            required:
+              - refreshToken
+            properties:
+              refreshToken:
+                type: string
+                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXJhbXMiOnsiaWQiOiI1ZTM5MjE1MjgzNDU1MDIzMzcxZmE5MDMifSwiaWF0IjoxNTgwODAyMzg2LCJleHAiOjE1OTExNzAzODZ9.6YAkg-lazn1qxXhdXQmnWCoQ-bnZ9_yqrVVRdQU-QDc"
+      produces:
+        - application/json
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: "#/definitions/RefreshToken"
