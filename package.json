@@ -16,7 +16,6 @@
   "keywords": [
     "api",
     "nodejs",
-    "tdd",
     "express",
     "barbecue",
     "mongodb"
