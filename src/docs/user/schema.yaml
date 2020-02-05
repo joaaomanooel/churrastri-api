@@ -7,7 +7,7 @@ definitions:
       barbecues:
         type: array
         items:
-          $ref: "#/definitions/barbecues"
+          $ref: "#/definitions/Barbecues"
       _id:
         type: string
         example: "5e39215283455023371fa903"

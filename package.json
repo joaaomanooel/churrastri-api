@@ -1,7 +1,7 @@
 {
   "name": "churras-tri-api",
   "version": "0.0.1",
-  "description": "API to you control your barbecue calendar",
+  "description": "API for you to control your barbecue calendar",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",

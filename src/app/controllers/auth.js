@@ -22,7 +22,7 @@ const authenticate = async (req, res) => {
 
   user.password = undefined;
 
-  return res.send({ ...user, ...generateToken({ id: user._id }) });
+  return res.send({ ...user._doc, ...generateToken({ id: user._id }) });
 };
 
 const getNewToken = async (req, res) => {
@@ -35,7 +35,7 @@ const getNewToken = async (req, res) => {
   const user = await User.findOne({ _id: userId });
 
   if (!user) return res.status(400).send({ error: 'User not found.' });
-  return res.send({ ...user, ...generateToken({ id: user._id }) });
+  return res.send({ ...generateToken({ id: user._id }) });
 };
 
 module.exports = { authenticate, getNewToken, generateToken };
