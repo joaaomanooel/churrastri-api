@@ -1,8 +1,13 @@
-/* eslint-disable func-names */
 const bcrypt = require('bcrypt');
 const mongoose = require('../../database');
 
 const { Schema } = mongoose;
+
+async function encryptPassword(next) {
+  const hash = await bcrypt.hash(this.password, 10);
+  this.password = hash;
+  next();
+}
 
 const UserSchema = new Schema({
   name: {
@@ -25,16 +30,6 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
-  barbecues: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Barbecues',
-  }],
-});
-
-UserSchema.pre('save', async function (next) {
-  const hash = await bcrypt.hash(this.password, 10);
-  this.password = hash;
-  next();
-});
+}).pre('save', encryptPassword);
 
 module.exports = mongoose.model('User', UserSchema);

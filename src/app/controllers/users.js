@@ -1,56 +1,52 @@
 const User = require('../models/user');
 const { generateToken } = require('./auth');
-const { handleResponseError } = require('../helpers');
+const { handleResponseError, operationError } = require('../helpers');
 
 const PermissionErr = 'User without permission. Token not compatible with user';
-
-function operationError(operation) {
-  if (!operation) return 'Error to do operation';
-  return `Error to ${operation} user.`;
-}
+const errorMessage = operation => operationError(operation, 'User');
 
 const getAll = async (_req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().sort('name').populate('Barbecues');
     return res.status(200).send({ users });
-  } catch (error) { return handleResponseError(operationError('find'), error, res); }
+  } catch (error) { return handleResponseError(res, errorMessage('find'), error); }
 };
 
 const getById = async (req, res) => {
   try {
     const { id } = req.params;
+    if (req.userId !== id) throw PermissionErr;
     const user = await User.findOne({ _id: id });
     return res.status(200).json({ user });
-  } catch (error) { return handleResponseError(operationError('find'), error, res); }
+  } catch (error) { return handleResponseError(res, errorMessage('find'), error); }
 };
 
 const insert = async (req, res) => {
   try {
     const { email } = req.body;
     const existingUser = await User.findOne({ email });
-    if (existingUser) return handleResponseError('User already exist.', undefined, res);
-    await User.create(req.body);
-    const { _doc: user } = await User.findOne({ email });
+    if (existingUser) return handleResponseError(res, 'User already exist.');
+    const { _doc: user } = await User.create(req.body);
     return res.send({ ...user, ...generateToken({ id: user._id }) });
-  } catch (error) { return handleResponseError(operationError('register'), error, res); }
+  } catch (error) { return handleResponseError(res, errorMessage('register'), error); }
 };
 
 const update = async (req, res) => {
   try {
     const { id } = req.params;
-    if (req.userId !== id) throw new Error(PermissionErr);
+    if (req.userId !== id) throw PermissionErr;
     await User.findOneAndUpdate({ _id: id }, req.body);
     return res.status(204).send({ message: 'User updated with success.' });
-  } catch (error) { return handleResponseError(operationError('update'), error, res); }
+  } catch (error) { return handleResponseError(res, errorMessage('update'), error); }
 };
 
 const remove = async (req, res) => {
   try {
     const { id } = req.params;
-    if (req.userId !== id) throw new Error(PermissionErr);
+    if (req.userId !== id) throw PermissionErr;
     await User.remove({ _id: id });
     return res.status(204).send({ message: 'User removed with success.' });
-  } catch (error) { return handleResponseError(operationError('remove'), error, res); }
+  } catch (error) { return handleResponseError(res, errorMessage('remove'), error); }
 };
 
 module.exports = { getAll, getById, insert, update, remove };
