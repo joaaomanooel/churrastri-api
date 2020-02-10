@@ -5,6 +5,16 @@
  * @param {string} operation
  * @param {string} schemaName
  */
+const operationSuccess = (operation, schemaName) => {
+  if (!operation || !schemaName) return 'Error to do operation.';
+  return `${schemaName} ${operation} with success.`;
+};
+
+/**
+ * Format error on operation
+ * @param {string} operation
+ * @param {string} schemaName
+ */
 const operationError = (operation, schemaName) => {
   if (!operation || !schemaName) return 'Error to do operation.';
   return `Error to ${operation} ${schemaName}.`;
@@ -21,4 +31,4 @@ const handleResponseError = (res, message = operationError(), error) => {
   return res.status(400).send({ message, error });
 };
 
-module.exports = { handleResponseError, operationError };
+module.exports = { handleResponseError, operationError, operationSuccess };

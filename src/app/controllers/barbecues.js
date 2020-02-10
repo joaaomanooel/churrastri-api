@@ -1,21 +1,28 @@
 const Barbecue = require('../models/barbecue');
-const { handleResponseError, operationError } = require('../helpers');
+const { handleResponseError, operationError, operationSuccess } = require('../helpers');
 
 const errorMessage = operation => operationError(operation, 'Barbecues');
+const successMessage = operation => operationSuccess(operation, 'Barbecues');
 const PermissionErr = 'User without permission. Token not compatible with user';
 
 const getAll = async (req, res) => {
   try {
     const { userId } = req;
-    const barbecues = (await Barbecue.find({ participants: userId }));
-    return res.status(200).send({ barbecues });
+    const barbecues = await Barbecue
+      .find({ participants: { $in: [userId] } })
+      .populate('participants', 'name')
+      .sort('createdAt');
+    return res.status(200).send(barbecues);
   } catch (error) { return handleResponseError(res, errorMessage('find'), error); }
 };
 
 const getById = async (req, res) => {
   try {
     const { userId, params: { id } } = req;
-    const barbecues = Barbecue.findById(id);
+    const barbecues = Barbecue
+      .findOne({ _id: id, participants: { $in: [userId] } })
+      .populate('participants', 'name')
+      .sort('createdAt');
     if (!barbecues.participants.includes(userId)) throw PermissionErr;
     return res.status(200).send({ barbecues });
   } catch (error) { return handleResponseError(res, errorMessage('find'), error); }
@@ -34,11 +41,11 @@ const insert = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const { userId, params: { id } } = req.params;
-    const barbecues = Barbecue.findById(id);
-    if (!barbecues.participants.includes(userId)) throw PermissionErr;
+    const { userId, params: { id } } = req;
+    const barbecues = Barbecue.findById(id).populate('participants', '-barbecues');
+    if (!barbecues.participants && !barbecues.participants.includes(userId)) throw PermissionErr;
     await Barbecue.findOneAndUpdate({ _id: id }, req.body);
-    return res.status(204).send({ message: 'Barbecue updated with success.' });
+    return res.status(204).send({ message: successMessage('updated') });
   } catch (error) { return handleResponseError(res, errorMessage('update'), error); }
 };
 
@@ -47,7 +54,7 @@ const remove = async (req, res) => {
     const { id } = req.params;
     if (req.userId !== id) throw PermissionErr;
     await Barbecue.remove({ _id: id });
-    return res.status(204).send({ message: 'Barbecue removed with success.' });
+    return res.status(204).send({ message: successMessage('removed') });
   } catch (error) { return handleResponseError(res, errorMessage('remove'), error); }
 };
 
