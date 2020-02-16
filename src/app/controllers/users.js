@@ -8,7 +8,7 @@ const errorMessage = operation => operationError(operation, 'User');
 const getAll = async (_req, res) => {
   try {
     const users = await User.find().sort('name').populate('Barbecues');
-    return res.status(200).send({ users });
+    return res.status(200).send(users);
   } catch (error) { return handleResponseError(res, errorMessage('find'), error); }
 };
 
@@ -17,7 +17,7 @@ const getById = async (req, res) => {
     const { id } = req.params;
     if (req.userId !== id) throw PermissionErr;
     const user = await User.findOne({ _id: id });
-    return res.status(200).json({ user });
+    return res.status(200).json(user);
   } catch (error) { return handleResponseError(res, errorMessage('find'), error); }
 };
 
