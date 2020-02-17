@@ -31,7 +31,7 @@ const getById = async (req, res) => {
 const insert = async (req, res) => {
   try {
     const { userId, body } = req;
-    if (!body.participants || body.participants.length) body.participants = [];
+    if (!body.participants || !body.participants.length) body.participants = [];
     const newBarbecue = { ...body, owner: userId, participants: [...body.participants, userId] };
     const created = await Barbecue.create(newBarbecue);
     const barbecue = await Barbecue.findById(created._id).populate('participants', '-barbecues');
@@ -41,10 +41,11 @@ const insert = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const { userId, params: { id } } = req;
-    const barbecues = Barbecue.findById(id).populate('participants', '-barbecues');
+    const { userId, params: { id }, body } = req;
+    const barbecues = await Barbecue.findById(id).populate('participants', '-barbecues');
     if (!barbecues.participants && !barbecues.participants.includes(userId)) throw PermissionErr;
-    await Barbecue.findOneAndUpdate({ _id: id }, req.body);
+    if (!body.participants || !body.participants.length) body.participants = [userId];
+    await Barbecue.findOneAndUpdate({ _id: id }, body);
     return res.status(204).send({ message: successMessage('updated') });
   } catch (error) { return handleResponseError(res, errorMessage('update'), error); }
 };
@@ -52,8 +53,9 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const { id } = req.params;
-    if (req.userId !== id) throw PermissionErr;
-    await Barbecue.remove({ _id: id });
+    const barbecue = await Barbecue.findById(id);
+    if (req.userId !== `${barbecue.owner}`) throw PermissionErr;
+    await Barbecue.deleteOne({ _id: id });
     return res.status(204).send({ message: successMessage('removed') });
   } catch (error) { return handleResponseError(res, errorMessage('remove'), error); }
 };

@@ -1,5 +1,5 @@
 # Churras Tri API  :meat_on_bone: :eggplant: :poultry_leg:
-[![Build Status](https://travis-ci.com/joaaomanooel/churras-tri-api.svg?branch=master)](https://travis-ci.com/joaaomanooel/churras-tri-api) [![Known Vulnerabilities](https://snyk.io/test/github//joaaomanooel/churras-tri/badge.svg)](https://snyk.io/test/github//joaaomanooel/churras-tri)
+[![Build Status](https://travis-ci.com/joaaomanooel/churras-tri-api.svg?branch=master)](https://travis-ci.com/joaaomanooel/churras-tri-api) [![Known Vulnerabilities](https://snyk.io/test/github/joaaomanooel/churras-tri-api/badge.svg?targetFile=package.json)](https://snyk.io/test/github/joaaomanooel/churras-tri-api?targetFile=package.json)
 
 ## Contributing
 
