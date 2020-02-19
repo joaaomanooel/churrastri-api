@@ -54,7 +54,7 @@ const remove = async (req, res) => {
   try {
     const { id } = req.params;
     const barbecue = await Barbecue.findById(id);
-    if (req.userId !== `${barbecue.owner}`) throw PermissionErr;
+    if (`${req.userId}` !== `${barbecue.owner}`) throw PermissionErr;
     await Barbecue.deleteOne({ _id: id });
     return res.status(204).send({ message: successMessage('removed') });
   } catch (error) { return handleResponseError(res, errorMessage('remove'), error); }

@@ -2,7 +2,7 @@ const mongoose = require('../../database');
 
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
+const BarbecueSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -33,4 +33,4 @@ const UserSchema = new Schema({
   }],
 });
 
-module.exports = mongoose.model('Barbecue', UserSchema);
+module.exports = mongoose.model('Barbecue', BarbecueSchema);
