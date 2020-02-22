@@ -31,6 +31,10 @@ const BarbecueSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   }],
+  paid: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  }],
 });
 
 module.exports = mongoose.model('Barbecue', BarbecueSchema);

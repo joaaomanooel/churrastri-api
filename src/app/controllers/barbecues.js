@@ -5,13 +5,21 @@ const errorMessage = operation => operationError(operation, 'Barbecues');
 const successMessage = operation => operationSuccess(operation, 'Barbecues');
 const PermissionErr = 'User without permission. Token not compatible with user';
 
+const handlePaid = (b) => {
+  const barbecue = b._doc;
+  barbecue.participants = b.participants.map(p => ({ ...p._doc, paid: !!b.paid.includes(p._id) }));
+  return barbecue;
+};
+
 const getAll = async (req, res) => {
   try {
     const { userId } = req;
-    const barbecues = await Barbecue
+    const data = await Barbecue
       .find({ participants: { $in: [userId] } })
-      .populate('participants', 'name')
-      .sort('createdAt');
+      .populate('participants', 'name email')
+      .sort('date');
+
+    const barbecues = data.map(handlePaid);
     return res.status(200).send(barbecues);
   } catch (error) { return handleResponseError(res, errorMessage('find'), error); }
 };
@@ -19,11 +27,10 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const { userId, params: { id } } = req;
-    const barbecues = Barbecue
-      .findOne({ _id: id, participants: { $in: [userId] } })
-      .populate('participants', 'name')
-      .sort('createdAt');
-    if (!barbecues.participants.includes(userId)) throw PermissionErr;
+    const data = await Barbecue
+      .findOne({ _id: id, $or: [{ participants: { $in: [userId] } }, { owner: userId }] })
+      .populate('participants', 'name email');
+    const barbecues = handlePaid(data);
     return res.status(200).send({ barbecues });
   } catch (error) { return handleResponseError(res, errorMessage('find'), error); }
 };
@@ -32,7 +39,10 @@ const insert = async (req, res) => {
   try {
     const { userId, body } = req;
     if (!body.participants || !body.participants.length) body.participants = [];
-    const newBarbecue = { ...body, owner: userId, participants: [...body.participants, userId] };
+    const participants = !body.participants.find(p => `${p}` === `${userId}`)
+      ? [...body.participants, userId]
+      : body.participants;
+    const newBarbecue = { ...body, owner: userId, participants };
     const created = await Barbecue.create(newBarbecue);
     const barbecue = await Barbecue.findById(created._id).populate('participants', '-barbecues');
     return res.send(barbecue);
