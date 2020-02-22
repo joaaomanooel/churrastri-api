@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/joaaomanooel/churras-tri-api/issues"
   },
-  "homepage": "https://github.com/joaaomanooel/churras-tri-api#readme",
+  "homepage": "https://churrastri.herokuapp.com/api/v1/docs/",
   "dependencies": {
     "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
