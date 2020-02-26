@@ -12,8 +12,12 @@ const generateToken = (params = {}) => ({
 });
 
 const authenticate = async (req, res) => {
+  const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   const { email, password } = req.body;
-  const user = await User.findOne({ email }).select('+password');
+
+  const user = await User
+    .findOne(regexEmail.test(email) ? { email } : { username: email })
+    .select('+password');
 
   if (!user) return res.status(400).send({ error: 'User not found.' });
   if (!await bcrypt.compare(password, user.password)) {
