@@ -16,7 +16,7 @@ const getAll = async (req, res) => {
     const { userId } = req;
     const data = await Barbecue
       .find({ participants: { $in: [userId] } })
-      .populate('participants', 'name email')
+      .populate('participants', 'name email username')
       .sort('date');
 
     const barbecues = data.map(handlePaid);
@@ -29,7 +29,7 @@ const getById = async (req, res) => {
     const { userId, params: { id } } = req;
     const data = await Barbecue
       .findOne({ _id: id, $or: [{ participants: { $in: [userId] } }, { owner: userId }] })
-      .populate('participants', 'name email');
+      .populate('participants', 'name email username');
     const barbecues = handlePaid(data);
     return res.status(200).send({ barbecues });
   } catch (error) { return handleResponseError(res, errorMessage('find'), error); }

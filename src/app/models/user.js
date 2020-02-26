@@ -26,6 +26,10 @@ const UserSchema = new Schema({
     required: true,
     select: false,
   },
+  username: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
