@@ -1,0 +1,72 @@
+definitions:
+  Barbecues:
+    properties:
+      price:
+        type: number
+        example: 75.5
+      date:
+        type: date
+        example: "2020-02-28T03:00:00.000Z"
+      createdAt:
+        type: date
+        example: "2020-02-26T02:54:32.995Z"
+      participants:
+        type: array
+        items:
+          properties:
+            _id:
+              type: string
+              example: "5e55eba74adaa9001d2f91d2"
+            email:
+              type: string
+              example: "ggribeiro@gmail.com"
+            name:
+              type: string
+              example: "Gabriel Ribeiro"
+            username:
+              type: string
+              example: "ggribeiro"
+            paid:
+              type: boolean
+              example: true
+      paid:
+        type: array
+        items:
+          type: string
+          example: "5e55de7c77faf5001ab89067"
+      _id:
+        type: string
+        example: "5e55de7c77faf5001ab89067"
+      description:
+        type: string
+        example: "Boas vindas do João na trinca"
+      title:
+        type: string
+        example: "Boas Vindas do João"
+      owner:
+        type: string
+        example: "5e55de2b1acb6c0014f1ba23"
+  CreateBarbecues:
+    properties:
+      price:
+        type: number
+        example: 75.5
+      date:
+        type: date
+        example: "2020-02-28T03:00:00.000Z"
+      participants:
+        type: array
+        items:
+          type: string
+          example: "5e55de7c77faf5001ab89067"
+      paid:
+        type: array
+        items:
+          type: string
+          example: "5e55de7c77faf5001ab89067"
+      description:
+        type: string
+        example: "Boas vindas do João na trinca"
+      title:
+        type: string
+        example: "Boas Vindas do João"

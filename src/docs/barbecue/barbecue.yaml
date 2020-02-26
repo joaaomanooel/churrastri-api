@@ -1,0 +1,106 @@
+paths:
+  /barbecues:
+    get:
+      description: Retorna todos churrascos
+      tags:
+        - Barbecues
+      produces:
+        - application/json
+      parameters:
+        - in: headers
+          name: Authorization
+          type: string
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: "#/definitions/Barbecues"
+    post:
+      description: Adiciona um usuário
+      tags:
+        - Barbecues
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            required:
+              - title
+            $ref: "#/definitions/CreateBarbecues"
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Barbecues"
+  /barbecues/${id}:
+    get:
+      description: Adiciona um usuário
+      tags:
+        - Barbecues
+      produces:
+        - application/json
+      parameters:
+        - in: headers
+          name: Authorization
+          type: string
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/Barbecues"
+    put:
+      description: Adiciona um usuário
+      tags:
+        - Barbecues
+      produces:
+        - application/json
+      parameters:
+        - in: headers
+          name: Authorization
+          type: string
+        - in: body
+          name: body
+          schema:
+            type: object
+            required:
+              - title
+            $ref: "#/definitions/CreateBarbecues"
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "204":
+          description: No Content
+    delete:
+      description: Adiciona um usuário
+      tags:
+        - Barbecues
+      produces:
+        - application/json
+      parameters:
+        - in: headers
+          name: Authorization
+          type: string
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ResponseError"
+        "204":
+          description: No Content

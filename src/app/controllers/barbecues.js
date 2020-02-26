@@ -31,7 +31,7 @@ const getById = async (req, res) => {
       .findOne({ _id: id, $or: [{ participants: { $in: [userId] } }, { owner: userId }] })
       .populate('participants', 'name email username');
     const barbecues = handlePaid(data);
-    return res.status(200).send({ barbecues });
+    return res.status(200).send(barbecues);
   } catch (error) { return handleResponseError(res, errorMessage('find'), error); }
 };
 
