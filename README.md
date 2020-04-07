@@ -7,15 +7,15 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/joaaomanooel/churras-tri/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/joaaomanooel/churras-tri-api/tags).
 
 ## Authors
 
-| ![João Manoel Neto](https://avatars2.githubusercontent.com/u/17843076?v=3&s=150)|
+| ![João Manoel Neto](https://avatars2.githubusercontent.com/u/17843076?v=4&s=150)|
 |:---------------------:|
 |  [João Manoel Neto](https://github.com/joaaomanooel/)   |
 
-See also the list of [contributors](https://github.com/joaaomanooel/churras-tri/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/joaaomanooel/churras-tri-api/contributors) who participated in this project.
 
 ## License
 
