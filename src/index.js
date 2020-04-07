@@ -34,4 +34,5 @@ module.exports = express()
   .use(helmet({ frameguard: { action: 'deny' } }))
   .use(bodyParser.urlencoded({ extended: false }))
   .use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+  .use('/api/v1/docs.json', (_req, res) => res.json(swaggerDocument))
   .use('/api/v1', (_req, res) => res.send({ message: 'Welcome to Churras Tri API' }));
