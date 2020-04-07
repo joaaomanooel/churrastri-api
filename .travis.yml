@@ -7,8 +7,7 @@ script:
   - yarn lint
 deploy:
   provider: heroku
-  api_key:
-    secure: $HEROKU_API_KEY
+  api_key: $HEROKU_API_KEY
   app: churrastri
   on:
     branch: master
