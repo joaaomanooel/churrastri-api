@@ -40,7 +40,7 @@
     "express-rate-limit": "^5.0.0",
     "express-session": "^1.17.0",
     "helmet": "^3.21.2",
-    "husky": "^4.2.1",
+    "husky": "^4.2.5",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.11",
     "morgan": "^1.9.1",
@@ -51,6 +51,7 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
+    "lint-staged": "^10.2.11",
     "nodemon": "^2.0.2"
   }
 }
