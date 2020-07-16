@@ -7,16 +7,19 @@ const compression = require('compression');
 const session = require('express-session');
 const swaggerUi = require('swagger-ui-express');
 const RateLimit = require('express-rate-limit');
+const apm = require('elastic-apm-node');
+
+apm.start();
 
 const swaggerDocument = require('./docs');
 const router = require('./app/routes');
 
 const sessionConfig = {
-  secret: 's3Cur3',
-  name: 'sessionId',
-  resave: false,
-  saveUninitialized: true,
+  secret: process.env.SESSION_SECRET || 'churras tri',
+  name: process.env.SESSION_NAME || 'churras tri',
   cookie: { httpOnly: true, secure: true },
+  saveUninitialized: true,
+  resave: false,
 };
 
 const limiter = new RateLimit({ windowMs: 15 * 60 * 1000, max: 100, delayMs: 0 });

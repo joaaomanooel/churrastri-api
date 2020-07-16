@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  churras-tri-api:
+    image: churras-tri-api
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 5000:5000
