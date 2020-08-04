@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  churrastri:
+    container_name: churrastri-api
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - '${PORT}:${PORT}'

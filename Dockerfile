@@ -1,15 +1,18 @@
-FROM node:12-slim
+FROM node:13-slim
 
-ENV NODE_ENV production
-
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY ["package.json", "package-lock.json", "./"]
+COPY ["package.json", "yarn.lock", "/usr/src/app/"]
 
-RUN npm install --production --silent --progress=false && mv node_modules ../
 
-COPY . .
+RUN if [ "$NODE_ENV" = "development" ]; \
+	then yarn;  \
+	else yarn install --frozen-lockfile  --production=true; \
+	fi
 
-EXPOSE 5000
+COPY . /usr/src/app/
 
-CMD [ "npm", "start" ]
+RUN ["chmod", "+x", "wait-for"]
+
+EXPOSE ${PORT}

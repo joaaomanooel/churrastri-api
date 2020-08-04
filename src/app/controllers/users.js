@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const { generateToken } = require('./auth');
 const { handleResponseError, operationError } = require('../helpers');
+const { jobsKeys } = require('../constants');
+const Queue = require('../lib/queue');
 
 const PermissionErr = 'User without permission. Token not compatible with user';
 const errorMessage = operation => operationError(operation, 'User');
@@ -27,6 +29,8 @@ const insert = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) return handleResponseError(res, 'User already exist.');
     const { _doc: user } = await User.create(req.body);
+    await Queue.add(jobsKeys.SignupMail, { user });
+
     return res.send({ ...user, ...generateToken({ id: user._id }) });
   } catch (error) { return handleResponseError(res, errorMessage('register'), error); }
 };
@@ -44,7 +48,7 @@ const remove = async (req, res) => {
   try {
     const { id } = req.params;
     if (req.userId !== id) throw PermissionErr;
-    await User.remove({ _id: id });
+    await User.findOneAndDelete({ _id: id });
     return res.status(204).send({ message: 'User removed with success.' });
   } catch (error) { return handleResponseError(res, errorMessage('remove'), error); }
 };

@@ -1,5 +1,8 @@
 /* eslint-disable no-console */
 
+const nodemailer = require('nodemailer');
+const mailConfig = require('../config/mail');
+
 /**
  * Format error on operation
  * @param {string} operation
@@ -31,4 +34,6 @@ const handleResponseError = (res, message = operationError(), error) => {
   return res.status(400).send({ message, error });
 };
 
-module.exports = { handleResponseError, operationError, operationSuccess };
+const Mail = nodemailer.createTransport(mailConfig);
+
+module.exports = { handleResponseError, operationError, operationSuccess, Mail };
