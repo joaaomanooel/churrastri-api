@@ -9,7 +9,7 @@ module.exports = {
     const { user } = data;
 
     await Mail.sendMail({
-      from: `Churras Tri <${process.env.MAIL_USER}`,
+      from: `Churrastri <${process.env.MAIL_USER}`,
       to: `${user.name} <${user.email}>`,
       subject: 'Bem-vindx ao Churras Tri!',
       html: `Olá ${user.name}, bem-vindx ao Churras Tri =)`,

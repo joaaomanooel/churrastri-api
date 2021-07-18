@@ -5,7 +5,7 @@ const redisConfig = require('../config/redis');
 const jobs = require('../jobs');
 
 const queues = Object.values(jobs).map(job => ({
-  bull: new Queue(job.key, redisConfig),
+  bull: new Queue(job.key, { redis: redisConfig }),
   options: job.options,
   handle: job.handle,
   name: job.key,
